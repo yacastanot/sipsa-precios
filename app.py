@@ -8,14 +8,12 @@ import sys
 import threading
 from pathlib import Path
 
-from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, Response, StreamingResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
 
 PROJECT_ROOT = Path(__file__).parent
-load_dotenv(PROJECT_ROOT / ".env")
 RAW_DIR = PROJECT_ROOT / "data" / "01_raw"
 REPORTING_DIR = PROJECT_ROOT / "data" / "08_reporting"
 
@@ -59,7 +57,7 @@ async def favicon():
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request, _: str = Depends(_check_auth)):
-    return templates.TemplateResponse(request, "index.html")
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.post("/upload")
