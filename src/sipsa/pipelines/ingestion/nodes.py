@@ -6,7 +6,8 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-COLUMNAS_ESPERADAS = {"Grupo", "Producto", "Fuente", "Min(1)", "Max(1)", "P(1)", "P(-1)", "Tend"}
+COLUMNAS_ESPERADAS = {"Grupo", "Producto", "Fuente", "Min(1)", "Max(1)", "P(1)", "Tend"}
+COLUMNAS_OPCIONALES = {"P(-1)"}
 
 
 def leer_entrada(ruta_entrada: str, archivo_entrada: str) -> pd.DataFrame:
@@ -27,6 +28,10 @@ def leer_entrada(ruta_entrada: str, archivo_entrada: str) -> pd.DataFrame:
     faltantes = COLUMNAS_ESPERADAS - set(df.columns)
     if faltantes:
         raise ValueError(f"Columnas faltantes en el archivo de entrada: {faltantes}")
+
+    for col in COLUMNAS_OPCIONALES - set(df.columns):
+        logger.warning("Columna opcional '%s' no está en el archivo de entrada; se dejará vacía.", col)
+        df[col] = pd.NA
 
     # Eliminar filas donde Producto o Fuente están vacíos
     df = df.dropna(subset=["Producto", "Fuente"])
