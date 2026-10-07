@@ -13,3 +13,6 @@ __pycache__/
 *.egg-info/
 .venv/
 dist/
+
+# Editor (config local, rutas absolutas por máquina)
+.vscode/
