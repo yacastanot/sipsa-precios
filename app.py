@@ -8,6 +8,7 @@ import sys
 import threading
 from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, Response, StreamingResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
@@ -16,6 +17,8 @@ from fastapi.templating import Jinja2Templates
 PROJECT_ROOT = Path(__file__).parent
 RAW_DIR = PROJECT_ROOT / "data" / "01_raw"
 REPORTING_DIR = PROJECT_ROOT / "data" / "08_reporting"
+
+load_dotenv(PROJECT_ROOT / ".env")  # Carga SIPSA_USER / SIPSA_PASS desde .env
 
 app = FastAPI(title="SIPSA Pipeline", docs_url=None, redoc_url=None)
 templates = Jinja2Templates(directory=str(PROJECT_ROOT / "templates"))
