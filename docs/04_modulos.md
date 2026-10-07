@@ -22,7 +22,7 @@ uvicorn app:app --host 0.0.0.0  # producción
 | GET    | `/outputs`        | Lista los boletines en `data/08_reporting/`      |
 | GET    | `/download/{f}`   | Descarga un boletín por nombre                   |
 
-Todos los endpoints requieren autenticación HTTP Basic (`SIPSA_USER` / `SIPSA_PASS`).
+Los endpoints no requieren autenticación.
 
 ---
 

@@ -81,5 +81,4 @@ uvicorn app:app --reload
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-Requiere además las variables `SIPSA_USER` y `SIPSA_PASS` en el `.env`.
-Ver [03_configuracion.md](03_configuracion.md).
+La interfaz web no pide usuario ni contraseña. Si se expone en red, hacerlo solo en una red de confianza.

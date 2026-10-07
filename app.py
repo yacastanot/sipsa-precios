@@ -2,53 +2,26 @@
 import asyncio
 import os
 import queue
-import secrets
 import subprocess
 import sys
 import threading
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, Response, StreamingResponse
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.templating import Jinja2Templates
 
 PROJECT_ROOT = Path(__file__).parent
 RAW_DIR = PROJECT_ROOT / "data" / "01_raw"
 REPORTING_DIR = PROJECT_ROOT / "data" / "08_reporting"
 
-load_dotenv(PROJECT_ROOT / ".env")  # Carga SIPSA_USER / SIPSA_PASS desde .env
+load_dotenv(PROJECT_ROOT / ".env")
 
 app = FastAPI(title="SIPSA Pipeline", docs_url=None, redoc_url=None)
 templates = Jinja2Templates(directory=str(PROJECT_ROOT / "templates"))
-security = HTTPBasic()
 
 _pipeline_running = False
-
-
-# ── Autenticación ─────────────────────────────────────────────────────────────
-
-def _check_auth(credentials: HTTPBasicCredentials = Depends(security)):
-    """Valida usuario y contraseña contra las variables de entorno SIPSA_USER / SIPSA_PASS."""
-    expected_user = os.environ.get("SIPSA_USER", "sipsa")
-    expected_pass = os.environ.get("SIPSA_PASS", "cambiar_esta_clave")
-
-    user_ok = secrets.compare_digest(
-        credentials.username.encode("utf-8"),
-        expected_user.encode("utf-8"),
-    )
-    pass_ok = secrets.compare_digest(
-        credentials.password.encode("utf-8"),
-        expected_pass.encode("utf-8"),
-    )
-    if not (user_ok and pass_ok):
-        raise HTTPException(
-            status_code=401,
-            detail="Credenciales incorrectas",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return credentials.username
 
 
 # ── Rutas ─────────────────────────────────────────────────────────────────────
@@ -59,14 +32,13 @@ async def favicon():
 
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request, _: str = Depends(_check_auth)):
+async def index(request: Request):
     return templates.TemplateResponse(request, "index.html")
 
 
 @app.post("/upload")
 async def upload_file(
     file: UploadFile = File(...),
-    _: str = Depends(_check_auth),
 ):
     if not file.filename.lower().endswith((".xlsx", ".xls")):
         raise HTTPException(400, "Solo se aceptan archivos Excel (.xlsx, .xls)")
@@ -78,12 +50,12 @@ async def upload_file(
 
 
 @app.get("/status")
-async def status(_: str = Depends(_check_auth)):
+async def status():
     return {"running": _pipeline_running}
 
 
 @app.get("/outputs")
-async def list_outputs(_: str = Depends(_check_auth)):
+async def list_outputs():
     if not REPORTING_DIR.exists():
         return {"files": []}
     files = sorted(
@@ -95,7 +67,7 @@ async def list_outputs(_: str = Depends(_check_auth)):
 
 
 @app.get("/download/{filename}")
-async def download(filename: str, _: str = Depends(_check_auth)):
+async def download(filename: str):
     path = (REPORTING_DIR / filename).resolve()
     if not str(path).startswith(str(REPORTING_DIR.resolve())):
         raise HTTPException(403, "Acceso denegado")
@@ -112,7 +84,6 @@ async def download(filename: str, _: str = Depends(_check_auth)):
 async def run_pipeline(
     fecha: str = Form(...),
     archivo: str = Form(...),
-    _: str = Depends(_check_auth),
 ):
     global _pipeline_running
     if _pipeline_running:

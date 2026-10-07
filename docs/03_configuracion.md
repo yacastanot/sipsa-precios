@@ -13,15 +13,6 @@ Copiar `.env.example` y completar los valores antes de cada ejecución.
 | `SIPSA_FECHA`     | string | `06MAR2026`          | Fecha del boletín. Aparece en el nombre del archivo Excel de salida. Formato: `DDMMMYYYY` en mayúsculas. |
 | `SIPSA_ARCHIVO`   | string | `Listado a 06 mar 26.xlsx` | Nombre exacto del archivo Excel en `data/01_raw/`. Debe coincidir byte a byte (mayúsculas, espacios, extensión). |
 
-### Variables de la API web
-
-| Variable      | Tipo   | Default              | Propósito                                                |
-|---------------|--------|----------------------|----------------------------------------------------------|
-| `SIPSA_USER`  | string | `sipsa`              | Usuario para autenticación HTTP Basic de la API web.     |
-| `SIPSA_PASS`  | string | `cambiar_esta_clave` | Contraseña para autenticación HTTP Basic. **Cambiar antes de exponer en red.** |
-
-> Las variables de API son opcionales si solo se usa `kedro run` desde terminal.
-
 ## Archivo `conf/base/parameters.yml`
 
 Lee las variables de entorno mediante el resolver `env:` de OmegaConf,
