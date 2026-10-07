@@ -16,3 +16,6 @@ dist/
 
 # Editor (config local, rutas absolutas por máquina)
 .vscode/
+
+# Documentación pesada, no versionar (se queda solo local)
+docs/00_Manual_Usuario_SIPSA_Precios.pptx

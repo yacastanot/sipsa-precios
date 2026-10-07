@@ -29,7 +29,7 @@ kedro run
 
 ## Documentación completa
 
-- [Manual de Usuario (PPTX)](docs/00_Manual_Usuario_SIPSA_Precios.pptx)
+- Manual de Usuario (PPTX) — disponible localmente en `docs/`, no versionado en el repositorio
 - [Arquitectura y decisiones de diseño](docs/01_arquitectura.md)
 - [Instalación y configuración del ambiente](docs/02_instalacion.md)
 - [Variables de configuración (.env)](docs/03_configuracion.md)
