@@ -84,10 +84,10 @@ una subclase de `FilaStrategy` y registrarla en `_ESTRATEGIAS`.
 
 | Librería          | Versión  | Rol                                      |
 |-------------------|----------|------------------------------------------|
-| Python            | 3.9+     | Lenguaje base                            |
-| kedro             | 0.19.x   | Orquestación de pipelines                |
-| kedro-datasets    | 7.x      | Conectores: Excel, Parquet, YAML         |
-| pandas            | 2.x      | Manipulación de DataFrames               |
+| Python            | 3.14+    | Lenguaje base                            |
+| kedro             | 1.x      | Orquestación de pipelines                |
+| kedro-datasets    | 9.x      | Conectores: Excel, Parquet, YAML         |
+| pandas            | 3.x      | Manipulación de DataFrames               |
 | openpyxl          | 3.1.x    | Generación del Excel formateado          |
 | python-dotenv     | 1.x      | Carga de variables de entorno desde .env |
 | fastapi           | 0.100+   | API web opcional                         |

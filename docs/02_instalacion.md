@@ -4,7 +4,7 @@
 
 | Componente  | Versión mínima | Notas                              |
 |-------------|----------------|------------------------------------|
-| Python      | 3.9            | Probado con 3.13.9                 |
+| Python      | 3.14           | Probado con 3.14.7                 |
 | pip         | 23+            | Incluido con Python                |
 | S.O.        | Windows 10+    | También compatible con Linux       |
 | RAM         | 4 GB           | El pipeline usa ~200 MB en ejecución |

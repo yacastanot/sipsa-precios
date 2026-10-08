@@ -5,7 +5,7 @@
 El **Sistema de Información de Precios y Abastecimiento del Sector Agropecuario (SIPSA)** del DANE
 publica semanalmente un boletín con los precios de venta en los principales mercados mayoristas
 de Colombia. Este proyecto migra el proceso original (SAS + macro VBA en Excel) a un pipeline
-reproducible en Python, estructurado con el framework **Kedro 0.19**.
+reproducible en Python, estructurado con el framework **Kedro 1.x**.
 
 ### Archivo original reemplazado
 
@@ -19,12 +19,12 @@ reproducible en Python, estructurado con el framework **Kedro 0.19**.
 ## 2. Requisitos
 
 ```
-Python 3.13.9
-kedro 0.19.15
-pandas 2.3.3
+Python 3.14.7
+kedro 1.7.0
+pandas 3.0.6
 openpyxl 3.1.5
 python-dotenv >= 1.0
-kedro-datasets 7.0.0   # incluye pandas.ExcelDataset, pandas.ParquetDataset, yaml.YAMLDataset
+kedro-datasets 9.6.0   # incluye pandas.ExcelDataset, pandas.ParquetDataset, yaml.YAMLDataset
 ```
 
 Instalación (una sola vez):

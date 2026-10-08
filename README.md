@@ -21,9 +21,9 @@ kedro run
 
 | Componente      | Versión mínima |
 |-----------------|----------------|
-| Python          | 3.9+           |
-| kedro           | 0.19.x         |
-| pandas          | 2.0+           |
+| Python          | 3.14+          |
+| kedro           | 1.4+ (1.x)     |
+| pandas          | 2.3.3+         |
 | openpyxl        | 3.1+           |
 | S.O.            | Windows / Linux |
 
